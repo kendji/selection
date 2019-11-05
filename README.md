@@ -38,6 +38,8 @@ Also, define the selection value in enum and supply its name in the <T> part.
 'selectedValue' is designed to use the 0th array so that the value can be changed from the outside.
 Type T must be created with enum.
 
+You may need a script to disable tab key in index.html for web.
+
 The color and shape are adjusted to suit my convenience.
 I'm sorry for explaining the behavior, please touch example.
 
