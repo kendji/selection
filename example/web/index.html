@@ -5,6 +5,13 @@
   <title>example</title>
 </head>
 <body>
+  <script>
+    window.addEventListener('keydown', (event) => {
+      if (event.code == 'Tab') {
+        event.preventDefault();
+      }
+    });
+  </script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
