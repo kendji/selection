@@ -1,6 +1,6 @@
 name: selection
-description: A new Flutter package project.
-version: 1.0.0
+description: Radio button with focus. Developed for flutter for web but can also be used on Android. iOS is unverified, but probably works.
+version: 1.0.0+1
 author: Takitani Kenji <takitani.kenji@gmail.com>
 homepage: https://www.facebook.com/takitani.kenji
 
