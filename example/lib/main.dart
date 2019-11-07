@@ -11,12 +11,14 @@ enum Sex {
 List<SelectionManifest<Sex>> _sexManifest = [
   SelectionManifest<Sex>(
       label: 'not known', value: Sex.notKnown, width: 120, height: 40),
-  SelectionManifest<Sex>(
-      label: 'male', value: Sex.male, width: 90, height: 40),
+  SelectionManifest<Sex>(label: 'male', value: Sex.male, width: 90, height: 40),
   SelectionManifest<Sex>(
       label: 'female', value: Sex.female, width: 100, height: 40),
   SelectionManifest<Sex>(
-      label: 'not applicable', value: Sex.not_applicable, width: 150, height: 40),
+      label: 'not applicable',
+      value: Sex.not_applicable,
+      width: 150,
+      height: 40),
 ];
 
 enum DominantHand {
@@ -32,6 +34,7 @@ List<SelectionManifest<DominantHand>> _dominantHandManifest = [
   SelectionManifest<DominantHand>(
       label: 'right', value: DominantHand.right, width: 90, height: 40),
 ];
+
 /// For Selection parts end.
 
 void main() => runApp(MyApp());
@@ -59,7 +62,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   /// For Selection parts begin.
   final focusNodes = [
     FocusNode(),
@@ -67,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
   final _sex = <Sex>[null];
   final _dominant = <DominantHand>[null];
+
   /// For Selection parts end.
 
   @override
@@ -79,17 +82,17 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Selection(
-                      focusNodes: focusNodes,
-                      focusNodeIndex: 0,
-                      manifests: _sexManifest,
-                      selectedValue: _sex),
-                  SizedBox(height: 8),
-                  Selection(
-                      focusNodes: focusNodes,
-                      focusNodeIndex: 1,
-                      manifests: _dominantHandManifest,
-                      selectedValue: _dominant)
-                ])));
+              Selection(
+                  focusNodes: focusNodes,
+                  focusNodeIndex: 0,
+                  manifests: _sexManifest,
+                  selectedValue: _sex),
+              SizedBox(height: 8),
+              Selection(
+                  focusNodes: focusNodes,
+                  focusNodeIndex: 1,
+                  manifests: _dominantHandManifest,
+                  selectedValue: _dominant)
+            ])));
   }
 }
