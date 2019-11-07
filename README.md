@@ -23,11 +23,11 @@ The radio button for the web doesn't accept the tab key, so I made it.
 Please make the content with SelectionManifest<T> class.
 Also, define the selection value in enum and supply its name in the <T> part.
 
-#Usage
+# Usage
 
 To use this plugin, add `selection` as a [dependency in your pubspec.yaml file.](https://flutter.dev/docs/development/packages-and-plugins/using-packages)
 
-#Example
+# Example
 
 ```dart
 import 'package:flutter/material.dart';
