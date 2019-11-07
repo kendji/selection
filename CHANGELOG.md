@@ -8,3 +8,6 @@ I made it.
 
 ## [1.0.0+1] - 2019-11-07
 Editing descriptions.
+
+## [1.0.1] - 2019-11-07
+Fixing web release mode.

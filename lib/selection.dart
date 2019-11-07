@@ -18,10 +18,10 @@ class SelectionManifest<T> {
 class Selection<T> extends StatefulWidget {
   Selection(
       {this.key,
-        this.focusNodes,
-        this.focusNodeIndex,
-        this.manifests,
-        this.selectedValue})
+      this.focusNodes,
+      this.focusNodeIndex,
+      this.manifests,
+      this.selectedValue})
       : super(key: key);
   static const String className = "Selection";
 
@@ -73,56 +73,55 @@ class _SelectionState extends State<Selection> {
         onFocusChange: (value) => setState(() => _focused = value),
         child: Wrap(
             children:
-            List<Widget>.generate(widget.manifests.length, (int index) {
-              return Container(
-                  padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
-                  width: widget.manifests[index].width,
-                  height: widget.manifests[index].height,
-                  child: Material(
-                      borderRadius: BorderRadius.circular(8.0),
-                      clipBehavior: Clip.antiAlias,
-                      color: _focused && (_focusedIndex ?? -1) == index
-                          ? Colors.blue[100]
-                          : Colors.grey[300],
-                      child: Stack(children: <Widget>[
-                        Container(
-                            height: widget.manifests[index].height,
-                            padding:
+                List<Widget>.generate(widget.manifests.length, (int index) {
+          return Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+              width: widget.manifests[index].width,
+              height: widget.manifests[index].height,
+              child: Material(
+                  borderRadius: BorderRadius.circular(8.0),
+                  clipBehavior: Clip.antiAlias,
+                  color: _focused && (_focusedIndex ?? -1) == index
+                      ? Colors.blue[100]
+                      : Colors.grey[300],
+                  child: Stack(children: <Widget>[
+                    Container(
+                        height: widget.manifests[index].height,
+                        padding:
                             EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                      widget.selectedValue[0]?.index == index
-                                          ? Icons.radio_button_checked
-                                          : Icons.radio_button_unchecked,
-                                      color:
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                  widget.selectedValue[0]?.index == index
+                                      ? Icons.radio_button_checked
+                                      : Icons.radio_button_unchecked,
+                                  color:
                                       _focused && (_focusedIndex ?? -1) == index
                                           ? Colors.blue
                                           : Colors.black),
-                                  Text('${widget.manifests[index].label}')
-                                ])),
-                        InkWell(
-                            child: null,
-                            onTap: () {
-                              setState(() {
-                                _focused = true;
-                                _focusedIndex = index;
-                                widget.focusNodes[widget.focusNodeIndex]
-                                    .requestFocus();
-                                widget.selectedValue[0] =
-                                    widget.manifests[index].value;
-                              });
-                            })
-                      ])));
-            }).toList()),
+                              Text('${widget.manifests[index].label}')
+                            ])),
+                    InkWell(
+                        child: null,
+                        onTap: () {
+                          FocusScope.of(context).requestFocus(
+                              widget.focusNodes[widget.focusNodeIndex]);
+                          setState(() {
+                            _focused = true;
+                            _focusedIndex = index;
+                            widget.selectedValue[0] =
+                                widget.manifests[index].value;
+                          });
+                        })
+                  ])));
+        }).toList()),
         onKey: _onKey);
   }
 
   bool _onKey(FocusNode node, RawKeyEvent keyEvent) {
-    debugPrint(keyEvent.runtimeType.toString());
-    if (node.hasFocus && (keyEvent.runtimeType.toString() == 'RawKeyUpEvent')) {
+    if (node.hasFocus && ((keyEvent as RawKeyUpEvent) != null)) {
       /// move focus
       if (keyEvent.data.physicalKey == PhysicalKeyboardKey.tab) {
         if (!keyEvent.data.isShiftPressed) {
@@ -167,7 +166,7 @@ class _SelectionState extends State<Selection> {
       } else if (keyEvent.data.physicalKey == PhysicalKeyboardKey.space) {
         if (widget.selectedValue[0] != widget.manifests[_focusedIndex].value)
           setState(() =>
-          widget.selectedValue[0] = widget.manifests[_focusedIndex].value);
+              widget.selectedValue[0] = widget.manifests[_focusedIndex].value);
         return true;
       }
     }
