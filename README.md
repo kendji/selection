@@ -24,9 +24,11 @@ Please make the content with SelectionManifest<T> class.
 Also, define the selection value in enum and supply its name in the <T> part.
 
 #Usage
+
 To use this plugin, add `selection` as a [dependency in your pubspec.yaml file.](https://flutter.dev/docs/development/packages-and-plugins/using-packages)
 
 #Example
+
 ```dart
 import 'package:flutter/material.dart';
 import 'package:selection/selection.dart';
