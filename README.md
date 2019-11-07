@@ -1,6 +1,6 @@
 # selection
 
-A new Flutter package project.
+Radio button with focus. Developed for flutter for web but can also be used on Android. iOS is unverified, but probably works..
 
 ## Getting Started
 
