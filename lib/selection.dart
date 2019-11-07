@@ -121,53 +121,56 @@ class _SelectionState extends State<Selection> {
   }
 
   bool _onKey(FocusNode node, RawKeyEvent keyEvent) {
-    if (node.hasFocus && ((keyEvent as RawKeyUpEvent) != null)) {
-      /// move focus
-      if (keyEvent.data.physicalKey == PhysicalKeyboardKey.tab) {
-        if (!keyEvent.data.isShiftPressed) {
-          /// next
-          int next = widget.focusNodeIndex + 1;
-          if (next == widget.focusNodes.length) next = 0;
-          FocusScope.of(context).requestFocus(widget.focusNodes[next]);
+    if (node.hasFocus) {
+      if (keyEvent is RawKeyUpEvent) {
+        /// move focus
+        if (keyEvent.data.physicalKey == PhysicalKeyboardKey.tab) {
+          if (!keyEvent.data.isShiftPressed) {
+            /// next
+            int next = widget.focusNodeIndex + 1;
+            if (next == widget.focusNodes.length) next = 0;
+            FocusScope.of(context).requestFocus(widget.focusNodes[next]);
+            return true;
+          } else {
+            /// prev
+            int prev = widget.focusNodeIndex - 1;
+            if (prev < 0) prev = widget.focusNodes.length - 1;
+            FocusScope.of(context).requestFocus(widget.focusNodes[prev]);
+            return true;
+          }
+        } else if ((keyEvent.data.physicalKey ==
+                PhysicalKeyboardKey.arrowDown) ||
+            (keyEvent.data.physicalKey == PhysicalKeyboardKey.arrowRight)) {
+          /// switch next
+          setState(() {
+            bool alreadyOn = widget.selectedValue[0] ==
+                widget.manifests[_focusedIndex].value;
+            final qty = widget.manifests.length;
+            _focusedIndex++;
+            if (_focusedIndex == qty) _focusedIndex = 0;
+            if (alreadyOn)
+              widget.selectedValue[0] = widget.manifests[_focusedIndex].value;
+          });
           return true;
-        } else {
-          /// prev
-          int prev = widget.focusNodeIndex - 1;
-          if (prev < 0) prev = widget.focusNodes.length - 1;
-          FocusScope.of(context).requestFocus(widget.focusNodes[prev]);
+        } else if ((keyEvent.data.physicalKey == PhysicalKeyboardKey.arrowUp) ||
+            (keyEvent.data.physicalKey == PhysicalKeyboardKey.arrowLeft)) {
+          /// switch prev
+          setState(() {
+            bool alreadyOn = widget.selectedValue[0] ==
+                widget.manifests[_focusedIndex].value;
+            final qty = widget.manifests.length;
+            _focusedIndex--;
+            if (_focusedIndex < 0) _focusedIndex = qty - 1;
+            if (alreadyOn)
+              widget.selectedValue[0] = widget.manifests[_focusedIndex].value;
+          });
+          return true;
+        } else if (keyEvent.data.physicalKey == PhysicalKeyboardKey.space) {
+          if (widget.selectedValue[0] != widget.manifests[_focusedIndex].value)
+            setState(() => widget.selectedValue[0] =
+                widget.manifests[_focusedIndex].value);
           return true;
         }
-      } else if ((keyEvent.data.physicalKey == PhysicalKeyboardKey.arrowDown) ||
-          (keyEvent.data.physicalKey == PhysicalKeyboardKey.arrowRight)) {
-        /// switch next
-        setState(() {
-          bool alreadyOn =
-              widget.selectedValue[0] == widget.manifests[_focusedIndex].value;
-          final qty = widget.manifests.length;
-          _focusedIndex++;
-          if (_focusedIndex == qty) _focusedIndex = 0;
-          if (alreadyOn)
-            widget.selectedValue[0] = widget.manifests[_focusedIndex].value;
-        });
-        return true;
-      } else if ((keyEvent.data.physicalKey == PhysicalKeyboardKey.arrowUp) ||
-          (keyEvent.data.physicalKey == PhysicalKeyboardKey.arrowLeft)) {
-        /// switch prev
-        setState(() {
-          bool alreadyOn =
-              widget.selectedValue[0] == widget.manifests[_focusedIndex].value;
-          final qty = widget.manifests.length;
-          _focusedIndex--;
-          if (_focusedIndex < 0) _focusedIndex = qty - 1;
-          if (alreadyOn)
-            widget.selectedValue[0] = widget.manifests[_focusedIndex].value;
-        });
-        return true;
-      } else if (keyEvent.data.physicalKey == PhysicalKeyboardKey.space) {
-        if (widget.selectedValue[0] != widget.manifests[_focusedIndex].value)
-          setState(() =>
-              widget.selectedValue[0] = widget.manifests[_focusedIndex].value);
-        return true;
       }
     }
     return false;
