@@ -14,3 +14,6 @@ Fixing web release mode.
 
 ## [1.0.1+1] - 2019-11-07
 Coordinated homepage address issues.
+
+## [1.0.2] - 2019-11-07
+Resolved an exception has occurred in the type cast test.
