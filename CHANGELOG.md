@@ -17,3 +17,6 @@ Coordinated homepage address issues.
 
 ## [1.0.2] - 2019-11-07
 Resolved an exception has occurred in the type cast test.
+
+## [1.0.2+1] - 2019-11-09
+Homepage url was fixed on pubspec.yaml.

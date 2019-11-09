@@ -2,6 +2,7 @@ name: selection
 description: Radio button with focus. Developed for flutter for web but can also be used on Android. iOS is unverified, but probably works.
 version: 1.0.2+1
 author: Takitani Kenji <takitani.kenji@gmail.com>
+homepage: https://github.com/kendji/selection
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
